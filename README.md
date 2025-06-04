@@ -36,7 +36,7 @@ node modules\main.js
 ## ⚙️ Структура проекта
 
 ```bash
-hh-auto-responder/
+hh-autoclicker/
 ├── config/
 │   └── config.js                # Настройки проекта (URL поиска, таймауты и др.)
 ├── data/
