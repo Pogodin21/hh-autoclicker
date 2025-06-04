@@ -22,8 +22,8 @@
 ## 🛠️ Установка
 
 ```bash
-git clone https://github.com/your-username/hh-auto-responder.git
-cd hh-auto-responder
+https://github.com/Pogodin21/hh-autoclicker.git
+cd hh-autoclicker
 npm install
 ```
 
