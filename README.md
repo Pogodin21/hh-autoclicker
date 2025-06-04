@@ -1,4 +1,4 @@
-# HH Auto Responder 
+# hh-autoclicker
 
 Автоматизация откликов на hh.ru с помощью Puppeteer.
 
