@@ -25,13 +25,17 @@
 git clone https://github.com/your-username/hh-auto-responder.git
 cd hh-auto-responder
 npm install
+```
 
 ## ▶️ Запуск
 
+```bash
 node modules\main.js
+```
 
 ## ⚙️ Структура проекта
 
+```bash
 hh-auto-responder/
 ├── config/
 │   └── config.js                # Настройки проекта (URL поиска, таймауты и др.)
@@ -49,7 +53,7 @@ hh-auto-responder/
 │   └── vacancies.js             # Сбор вакансий со страницы
 ├── my-profile/                  # Сессия Puppeteer 
 └── README.md
-
+```gi
 
 ##  Требования
 Node.js >= 18
