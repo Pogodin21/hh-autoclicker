@@ -53,7 +53,7 @@ hh-auto-responder/
 │   └── vacancies.js             # Сбор вакансий со страницы
 ├── my-profile/                  # Сессия Puppeteer 
 └── README.md
-```gi
+```
 
 ##  Требования
 Node.js >= 18
