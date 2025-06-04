@@ -1,0 +1,6 @@
+# .gitignore
+node_modules/
+my-profile/
+data/
+*.log
+.env
