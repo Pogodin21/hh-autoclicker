@@ -1,12 +1,21 @@
 const fs = require("fs");
 const { saveForms } = require("./formsManager");
 const { WAIT_ON_FORM_MS, PAGE_TIMEOUT_MS, RESPONSE_FORM_SELECTOR } = require("../config/config");
+const { loadResponded, saveResponded } = require("./respondedManager");
 
 async function processVacancies(browser, vacancies, savedForms, stopRequestedRef) {
+   const responded = loadResponded();
+  
   for (let i = 0; i < vacancies.length; i++) {
     if (stopRequestedRef.value) break;
 
     const vacancy = vacancies[i];
+
+    // if (responded.has(vacancy.vacancyId)) {
+    //   console.log(`⏭ Пропускаю ${vacancy.vacancyId}, уже был отклик.`);
+    //   continue;
+    // }
+
     console.log(`👉 Открываю ${i + 1}/${vacancies.length}: ${vacancy.href}`);
 
     try {
@@ -19,6 +28,7 @@ async function processVacancies(browser, vacancies, savedForms, stopRequestedRef
       const hasForm = await newPage.$(RESPONSE_FORM_SELECTOR);
       if (hasForm) {
         console.log(`📝 Найдена анкета на странице ${vacancy.vacancyId}`);
+
         if (!savedForms.some((f) => f.vacancyId === vacancy.vacancyId)) {
           savedForms.push({
             vacancyId: vacancy.vacancyId,
@@ -30,6 +40,11 @@ async function processVacancies(browser, vacancies, savedForms, stopRequestedRef
         } else {
           console.log(`⚠️ Эта анкета уже сохранена ранее.`);
         }
+
+
+        responded.add(vacancy.vacancyId);
+        saveResponded(responded);
+        console.log(`📌 ID ${vacancy.vacancyId} добавлен в responded.json`);
       } else {
         console.log(`✅ На странице ${vacancy.vacancyId} анкета не найдена.`);
       }

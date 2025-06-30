@@ -1,5 +1,3 @@
-
-
 module.exports = async (page, url) => {
   console.log("▶ Переходим на hh.ru...");
   await page.goto(url, {
