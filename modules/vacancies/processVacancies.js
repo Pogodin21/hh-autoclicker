@@ -1,13 +1,25 @@
 const fs = require("fs");
-const { saveForms } = require("./formsManager");
-const { WAIT_ON_FORM_MS, PAGE_TIMEOUT_MS, RESPONSE_FORM_SELECTOR } = require("../config/config");
-const { loadResponded, saveResponded } = require("./respondedManager");
+const { saveForms } = require("../forms/formsStore");
+const {
+  WAIT_ON_FORM_MS,
+  PAGE_TIMEOUT_MS,
+  RESPONSE_FORM_SELECTOR,
+} = require("../config/config");
+const { loadResponded, saveResponded } = require("../forms/respondedStore");
 
-async function processVacancies(browser, vacancies, savedForms, stopRequestedRef) {
-   const responded = loadResponded();
-  
+async function processVacancies(
+  browser,
+  vacancies,
+  savedForms,
+  stopRequestedRef,
+  responded,
+  saveResponded
+) {
   for (let i = 0; i < vacancies.length; i++) {
-    if (stopRequestedRef.value) break;
+    if (stopRequestedRef.value) {
+      console.log("⛔ Парсинг остановлен пользователем.");
+      break;
+    }
 
     const vacancy = vacancies[i];
 
@@ -26,6 +38,7 @@ async function processVacancies(browser, vacancies, savedForms, stopRequestedRef
       });
 
       const hasForm = await newPage.$(RESPONSE_FORM_SELECTOR);
+
       if (hasForm) {
         console.log(`📝 Найдена анкета на странице ${vacancy.vacancyId}`);
 
@@ -40,7 +53,6 @@ async function processVacancies(browser, vacancies, savedForms, stopRequestedRef
         } else {
           console.log(`⚠️ Эта анкета уже сохранена ранее.`);
         }
-
 
         responded.add(vacancy.vacancyId);
         saveResponded(responded);
